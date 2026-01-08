@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "307531840248",
+    "project_id": "smarttasknotesmanager-7b152",
+    "storage_bucket": "smarttasknotesmanager-7b152.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307531840248:android:989dc70e02b417dec9190d",
+        "android_client_info": {
+          "package_name": "com.smarttasknotesmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307531840248-sbknmodr01mqo42015q8dnjip9qlqf72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvLv9_hZYPmAlgJDzKzCzAsxC-tZFQa-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307531840248-sbknmodr01mqo42015q8dnjip9qlqf72.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307531840248-sms9r79sn2ta550cco17lftn4kc1jvcc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "smart.task.notes.manager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

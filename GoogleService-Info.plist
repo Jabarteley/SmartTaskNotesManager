@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDY2io_JJgORzpacg-utiz9gaDogssURYk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>307531840248</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>smart.task.notes.manager</string>
+	<key>PROJECT_ID</key>
+	<string>smarttasknotesmanager-7b152</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smarttasknotesmanager-7b152.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:307531840248:ios:5140f914391f5bf4c9190d</string>
+</dict>
+</plist>

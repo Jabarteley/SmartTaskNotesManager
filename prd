@@ -1,0 +1,150 @@
+smart Task & Notes Manager (Mobile App)
+
+A productivity-focused mobile application that allows users to securely log in, manage personal tasks and notes, and track completion status.
+
+This project is ideal because it:
+
+Demonstrates authentication
+
+Covers full CRUD
+
+Uses real-world patterns
+
+Is easy to extend if asked for “extra features”
+
+Core Functional Requirements
+1. Authentication (Mandatory)
+
+Purpose: Proves you understand secure user access.
+
+Features
+
+User Registration (Sign Up)
+
+User Login
+
+Logout
+
+Persisted login session
+
+Implementation Options
+
+Firebase Authentication (Email/Password)
+
+
+
+Screens
+
+Login Screen
+
+Register Screen
+
+2. Task Management (CRUD)
+
+Purpose: Demonstrates Create, Read, Update, Delete operations.
+
+Task Fields
+
+Title
+
+Description
+
+Status (Pending / Completed)
+
+Created Date
+
+Updated Date
+
+CRUD Actions
+
+Create a task
+
+View task list
+
+View task details
+
+Edit a task
+
+Delete a task
+
+3. Notes Module (CRUD)
+
+Purpose: Shows multi-entity data handling.
+
+Note Fields
+
+Title
+
+Content
+
+Timestamp
+
+Actions
+
+Add note
+
+View all notes
+
+Edit note
+
+Delete note
+
+4. Additional Features 
+
+
+
+✅ Task completion toggle
+✅ Search tasks or notes
+✅ Pull-to-refresh
+
+✅ Dark mode
+✅ Profile screen (view user info)
+
+Technical Stack (Recommended)
+Frontend
+
+Expo (React Native)
+
+TypeScript 
+
+React Navigation
+
+Axios or Fetch API
+
+Backend
+
+ – Firebase (Simplest)
+
+Firebase Auth
+
+Firestore database
+
+
+
+JWT Authentication
+
+App Screens Structure
+/screens
+ ├── LoginScreen.tsx
+ ├── RegisterScreen.tsx
+ ├── TaskListScreen.tsx
+ ├── TaskDetailScreen.tsx
+ ├── AddEditTaskScreen.tsx
+ ├── NotesScreen.tsx
+ ├── ProfileScreen.tsx
+
+App Flow (High-Level)
+
+User opens app
+
+If not authenticated → Login/Register
+
+On success → Dashboard (Task List)
+
+User can:
+
+Add/edit/delete tasks
+
+Manage notes
+
+Logout
