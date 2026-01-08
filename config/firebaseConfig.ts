@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth, getReactNativePersistence, initializeAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
@@ -26,7 +26,19 @@ try {
   auth = getAuth(app);
 }
 
-// Initialize Firestore
-const db = getFirestore(app);
+// Initialize Firestore with offline persistence
+let db;
+try {
+  db = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+      tabManager: persistentMultipleTabManager()
+    })
+  });
+} catch (error) {
+  // If Firestore is already initialized, get the existing instance
+  const { getFirestore } = require('firebase/firestore');
+  db = getFirestore(app);
+}
 
 export { app, auth, db };
+

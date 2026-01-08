@@ -1,14 +1,14 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack, router, useRootNavigationState, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
+import { ThemeProvider, useThemeContext } from '@/context/ThemeContext';
 import { ActivityIndicator, View } from 'react-native';
 
 export {
@@ -22,10 +22,11 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const { theme, isDark } = useThemeContext();
   const { user, loading } = useAuth();
   const segments = useSegments();
   const navigationState = useRootNavigationState();
+  const colors = Colors[theme];
 
   useEffect(() => {
     if (!navigationState?.key) return;
@@ -34,10 +35,8 @@ function RootLayoutNav() {
 
     if (!loading) {
       if (!user && !inAuthGroup) {
-        // Redirect to login if not authenticated
         router.replace('/(auth)/login');
       } else if (user && inAuthGroup) {
-        // Redirect to home if authenticated
         router.replace('/(tabs)');
       }
     }
@@ -45,20 +44,28 @@ function RootLayoutNav() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors[colorScheme ?? 'light'].background }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
         <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="task/[id]" options={{ presentation: 'modal' }} />
       </Stack>
-    </ThemeProvider>
+    </NavigationThemeProvider>
+  );
+}
+
+function AppContent() {
+  return (
+    <AuthProvider>
+      <RootLayoutNav />
+    </AuthProvider>
   );
 }
 
@@ -83,8 +90,8 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <RootLayoutNav />
-    </AuthProvider>
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

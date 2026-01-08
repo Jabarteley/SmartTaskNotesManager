@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/hooks/useTheme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Calendar, ChevronRight, LogOut, Mail, Shield, User } from 'lucide-react-native';
+import { Calendar, ChevronRight, LogOut, Mail, Moon, Shield, Smartphone, Sun, User } from 'lucide-react-native';
 import React from 'react';
 import {
     Alert,
@@ -17,7 +17,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
     const { user, logout } = useAuth();
-    const { theme, isDark } = useTheme();
+    const { theme, isDark, themeMode, setThemeMode } = useTheme();
 
     const handleLogout = () => {
         Alert.alert('Logout', 'Are you sure you want to logout?', [
@@ -77,6 +77,27 @@ export default function ProfileScreen() {
         </View>
     );
 
+    const ThemeButton = ({ mode, icon: Icon, label }: { mode: 'light' | 'dark' | 'system'; icon: any; label: string }) => {
+        const isActive = themeMode === mode;
+        return (
+            <TouchableOpacity
+                style={[
+                    styles.themeButton,
+                    {
+                        backgroundColor: isActive ? Colors.primary : theme.surface,
+                        borderColor: isActive ? Colors.primary : theme.border,
+                    },
+                ]}
+                onPress={() => setThemeMode(mode)}
+            >
+                <Icon size={20} color={isActive ? '#FFF' : theme.textSecondary} />
+                <Text style={[styles.themeButtonText, { color: isActive ? '#FFF' : theme.textSecondary }]}>
+                    {label}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top']}>
             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -99,6 +120,16 @@ export default function ProfileScreen() {
                     <Text style={[styles.userEmail, { color: theme.textSecondary }]}>{user?.email}</Text>
                 </View>
 
+                {/* Theme Selection */}
+                <View style={styles.section}>
+                    <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Appearance</Text>
+                    <View style={styles.themeContainer}>
+                        <ThemeButton mode="light" icon={Sun} label="Light" />
+                        <ThemeButton mode="dark" icon={Moon} label="Dark" />
+                        <ThemeButton mode="system" icon={Smartphone} label="System" />
+                    </View>
+                </View>
+
                 {/* Profile Info */}
                 <View style={styles.section}>
                     <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Account Info</Text>
@@ -116,18 +147,16 @@ export default function ProfileScreen() {
                     />
                 </View>
 
-                {/* App Info */}
+                {/* Offline Status */}
                 <View style={styles.section}>
-                    <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>App</Text>
+                    <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Storage</Text>
                     <View style={[styles.profileItem, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                        <View style={[styles.profileItemIcon, { backgroundColor: theme.surfaceSecondary }]}>
-                            <Text style={{ fontSize: 16 }}>🌙</Text>
+                        <View style={[styles.profileItemIcon, { backgroundColor: Colors.success + '20' }]}>
+                            <Text style={{ fontSize: 16 }}>📱</Text>
                         </View>
                         <View style={styles.profileItemContent}>
-                            <Text style={[styles.profileItemLabel, { color: theme.textSecondary }]}>Theme</Text>
-                            <Text style={[styles.profileItemValue, { color: theme.text }]}>
-                                {isDark ? 'Dark Mode' : 'Light Mode'} (System)
-                            </Text>
+                            <Text style={[styles.profileItemLabel, { color: theme.textSecondary }]}>Offline Mode</Text>
+                            <Text style={[styles.profileItemValue, { color: Colors.success }]}>Enabled</Text>
                         </View>
                     </View>
                 </View>
@@ -209,6 +238,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         textTransform: 'uppercase',
         letterSpacing: 0.5,
+    },
+    themeContainer: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    themeButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 14,
+        borderRadius: 12,
+        borderWidth: 1,
+        gap: 8,
+    },
+    themeButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
     },
     profileItem: {
         flexDirection: 'row',

@@ -1,12 +1,16 @@
 import Colors from '@/constants/Colors';
-import { useColorScheme as useRNColorScheme } from 'react-native';
+import { useThemeContext } from '@/context/ThemeContext';
 
 export function useTheme() {
-    const colorScheme = useRNColorScheme() ?? 'light';
-    const theme = Colors[colorScheme];
-    const isDark = colorScheme === 'dark';
+    const { theme, isDark, themeMode, setThemeMode, toggleTheme } = useThemeContext();
+    const colors = Colors[theme];
 
-    return { theme, isDark, colorScheme };
+    return {
+        theme: colors,
+        isDark,
+        colorScheme: theme,
+        themeMode,
+        setThemeMode,
+        toggleTheme
+    };
 }
-
-export { useRNColorScheme as useColorScheme };
